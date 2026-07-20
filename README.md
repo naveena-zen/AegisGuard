@@ -4,18 +4,7 @@ AegisGuard is an autonomous cybersecurity incident response and threat investiga
 
 Under anomalous conditions (e.g., suspicious traffic, brute force spikes, or egress anomalies), AegisGuard executes a read-only agent loop (Phase 1) using Groq API model instances to isolate the threat. It then hands off its structured findings to a deterministic Python policy engine (Phase 2) for automated mitigation (such as simulated service restarts or rollbacks) or human analyst escalation (via SMTP or fallback logs).
 
----
-
-## Why AegisGuard Matters
-
-Traditional security monitoring systems generate alerts that overwhelm security operations center (SOC) analysts. AegisGuard addresses this by:
-1. **Automating Threat Diagnostics**: Leveraging local Retrieval-Augmented Generation (RAG) to cross-reference active symptoms with historical security incident records.
-2. **Deterministic Guardrails**: Ensuring that the AI agent *never* has direct write access to infrastructure. Remediations are strictly gated behind hardcoded policy checks.
-3. **Optimizing Human-in-the-Loop Operations**: Escalating complex or low-confidence threats to security engineers, presenting clear AI-generated diagnostic timelines and metric summaries for rapid review and authorization.
-
----
-
-## How It Works
+## Architecture 
 
 AegisGuard operates via a four-stage pipeline:
 
@@ -110,6 +99,15 @@ The LLM outputs a structured hypothesis, confidence, and recommended action. A s
 - **Embeddings & RAG**: `sentence-transformers` (`all-MiniLM-L6-v2`) used locally to embed incident titles and root causes.
 - **LLM Agent**: Groq SDK (OpenAI-compatible client calling Llama 3 models) executing a function-calling loop.
 - **Frontend Console**: React (v19), Chart.js, Vanilla CSS.
+
+---
+
+## Why AegisGuard Matters
+
+Traditional security monitoring systems generate alerts that overwhelm security operations center (SOC) analysts. AegisGuard addresses this by:
+1. **Automating Threat Diagnostics**: Leveraging local Retrieval-Augmented Generation (RAG) to cross-reference active symptoms with historical security incident records.
+2. **Deterministic Guardrails**: Ensuring that the AI agent *never* has direct write access to infrastructure. Remediations are strictly gated behind hardcoded policy checks.
+3. **Optimizing Human-in-the-Loop Operations**: Escalating complex or low-confidence threats to security engineers, presenting clear AI-generated diagnostic timelines and metric summaries for rapid review and authorization.
 
 ---
 
